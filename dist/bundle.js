@@ -434,13 +434,13 @@ process.binding = function (name) {
 
 require.define("/app.js",function(require,module,exports,__dirname,__filename,process,global){require("./initialize.js");
 
-(function(){
-    Highbrow.func1 = function() {
+(function(HighresiO){
+    HighresiO.Highbrow.func1 = function() {
         //console.log(Highbrow);
-        Highbrow.mainFunc(" Hi called from app.js");
+        HighresiO.Highbrow.mainFunc(" Hi called from app.js");
     };
 
-    Highbrow.Photo = function (options) {
+    HighresiO.Highbrow.Photo = function (options) {
         this.options = options || {};
         options.emailAdd =  options.emailAdd || "noadd@noadd.com";
         options.emailLabel =  options.emailLabel || "Email adress (optional)";
@@ -450,40 +450,50 @@ require.define("/app.js",function(require,module,exports,__dirname,__filename,pr
         return this;
     };
 
-    Highbrow.Photo.prototype.snapPic = function() {
+    HighresiO.Highbrow.Photo.prototype.snapPic = function() {
         console.log(this.options);
     }
 
-})();
+})(HighresiO);
 });
 
-require.define("/initialize.js",function(require,module,exports,__dirname,__filename,process,global){(function(){
-    Highbrow = {};
+require.define("/initialize.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, HighresiO, undefined) {
+	// Define HighresiO as an object only if it doesn't exist. 
+	// Good practice based on: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailnamespacing
+	HighresiO = window.HighresiO || (window.HighresiO = {});
 
-    Highbrow.mainFunc = function(hi) {
+	// Added for namespacing - All objects/methods/function are under: HighresiO.Highbrow 
+	// Done to avoid conflicts with other libraries that might be named Highbrow.
+	// Has a very small performance / load time impact perhaps, but safer.
+    // Inner scope - All things will reside inside Highbrow.
+	HighresiO.Highbrow = {};
+
+	console.log(window.HighresiO);
+
+    HighresiO.Highbrow.mainFunc = function(hi) {
         console.log("Saying " + hi + " from mainFunc");
     };
-})();
+})(window);
 });
 
 require.define("/router.js",function(require,module,exports,__dirname,__filename,process,global){//require("./initialize.js");
 
-(function(){
-    Highbrow.func2 = function() {
+(function(HighresiO){
+    HighresiO.Highbrow.func2 = function() {
         main.mainFunc(" Hi called from router.js");
     };
 
-})();
+})(HighresiO);
 });
 
 require.define("/store.js",function(require,module,exports,__dirname,__filename,process,global){//require("./initialize.js");
 
-(function(){
-    Highbrow.func3 = function() {
+(function(HighresiO){
+    HighresiO.Highbrow.func3 = function() {
         Highbrow.mainFunc(" Hi called from store.js");
     };
 
-})();
+})(HighresiO);
 });
 
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var app = require("./app.js");
