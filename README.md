@@ -1,10 +1,9 @@
-# Brunch with Chaplin
-![](https://a248.e.akamai.net/camo.github.com/b7ebb8bbcec7938940cf8e9c441124c3bddafd3a/687474703a2f2f662e636c2e6c792f6974656d732f34373039326b30423141334a317a3166306b34362f6277632e706e67)
+# Highbrow - Simple framework for capturing high resolution information from modern browsers
 
-Brunch with Chaplin is a skeleton (boilerplate) for [Brunch](http://brunch.io)
-based on [Chaplin](http://chaplinjs.org) framework.
+Highbrow is a javascript framework providing many ways of  capturing "High Resolution" infromation from a web page from the end user.
+It is a collection of tools to let your users send information interactively.
 
-Requires Brunch 1.4+.
+Highbrow is built by  Highres.IO
 
 ## Getting started
 * Create new project via executing `brunch new <project name>`.
@@ -19,39 +18,16 @@ Example application built with the skeleton:
 
 See [Chaplin site](http://chaplinjs.org) for docs and more info.
 
-## Difference from Chaplin Boilerplate
-[Chaplin Boilerplate](https://github.com/chaplinjs/chaplin-boilerplate)
-is a official boilerplate all for chaplin. This skeleton is almost the same,
-except a few changes:
-
-* Added Header.
-* CommonJS is used instead of AMD, because it's easier to use & debug.
-
 ## Features
-* HTML5Boilerplate html & css are included.
-* CoffeeScript + Stylus + Handlebars as app languages
-(you can change this to anything you want)
-* Backbone as main MVC/MVP library, Chaplin as meta-framework.
-* Support of IE8 and up.
-* Cross-module communication using the Mediator and Publish/Subscribe patterns
-* Controllers for managing individual UI views
-* Rails-style routes which map URLs to controller actions
-* An application view as dispatcher and view manager
-* Extended model, view and collection classes to avoid repetition and
-enforce conventions
-* Strict memory management and object disposal
-* A collection with additional manipulation methods for smarter change events
-* A collection view for easy and intelligent list rendering
-
-## Authentication
-If you build an application with authentication, there are some useful abstractions for it out there: https://github.com/chaplinjs/chaplin-auth.
+* Highlights
+* Photos
+* Audio - Flash
+* Audio / Video - WebRTC (?)
 
 ## License
 The MIT license.
 
-Copyright (c) 2012 Paul Miller (http://paulmillr.com/)
-
-Copyright (c) 2012 Moviepilot GmbH, 9elements GmbH et al.
+Copyright (c) 2013 Akshay Sharma (http://highres.io/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
