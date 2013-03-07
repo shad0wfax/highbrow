@@ -1,3 +1,4 @@
+var init = require("./init.js");
 var app = require("./app.js");
 var router = require("./router.js");
 var store = require("./store.js");

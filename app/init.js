@@ -1,4 +1,6 @@
 (function(window, HighresiO, undefined) {
+	"use strict";
+	
 	// Define HighresiO as an object only if it doesn't exist. 
 	// Good practice based on: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailnamespacing
 	HighresiO = window.HighresiO || (window.HighresiO = {});
