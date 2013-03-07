@@ -1,7 +1,9 @@
 (function(window, Highbrow, undefined) {
 
 	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	Highbrow.BaseElStyle = function(){
+	// The flaw here is that all the other styles that derive from this can change its state and there is only one copy of each style.
+	Highbrow.Styles = function(){
+		// List the styles
 		var styles = {
 		    "email-box": "textbox",
 		    "comm-box": "text-area",
@@ -18,7 +20,7 @@
 		        }
 		    }
 		}
-		var getStyle = function(style) {
+		var get = function(style) {
 			if (style)
 				return styles[style];
 			else 
@@ -27,22 +29,8 @@
 
 		return {
 			init: init,
-			getStyle: getStyle
+			get: get
 		}
 	}();
-
-	Highbrow.PhotoElStyle = function(){
-		var styles = {
-		    "email-box": "textbox-photo",
-		    "webcam-on-btn": "btn webcam-btn",
-		    "click-btn": "btn click-primary"
-		};
-		var baseStyles = Highbrow.BaseElStyle;
-		// Init with photo style
-		baseStyles.init(styles);
-		return baseStyles;
-	}();
-
-
 
 })(window, HighresiO.Highbrow);

@@ -17,6 +17,7 @@
     </script>
     <script src="javascripts/bundle.js"></script>
     <script>
+        // TODO: Push these to a test class :)
         HighresiO0.olfunc();    
         HighresiO.Highbrow.func1();
         HighresiO.Highbrow.func2();
@@ -30,27 +31,42 @@
         photo = new HighresiO.Highbrow.Photo();
         photo.snapPic();
 
-        var elst = HighresiO.Highbrow.BaseElStyle;
-        console.log("elst - " + elst.getStyle("send-btn"));
+        var elst = HighresiO.Highbrow.Styles;
+        console.log("elst - " + elst.get("send-btn"));
 
         elst.init({
            "send-btn": "btn btn-large btn-success",
            "a-new-prop": "a-new-prop-added-now" 
         });
-        console.log("elst - " + elst.getStyle("send-btn"));        
-        console.log("elst - " + elst.getStyle("a-new-prop"));
+        console.log("elst - " + elst.get("send-btn"));        
+        console.log("elst - " + elst.get("a-new-prop"));
 
-        var elst2 =  HighresiO.Highbrow.PhotoElStyle;
-        console.log("elst - " + elst2.getStyle("send-btn"));
-        console.log("elst - " + elst2.getStyle("webcam-on-btn"));
+        var elst2 =  HighresiO.Highbrow.PhotoStyles;
+        console.log("elst - " + elst2.get("send-btn"));
+        console.log("elst - " + elst2.get("webcam-on-btn"));
 
         elst2.init({
            "webcam-on-btn": "changed-btn",
            "a-new-prop": "a-new-prop-added-now-from-photo" 
         });
-        console.log("elst - " + elst2.getStyle("webcam-on-btn"));        
-        console.log("elst - " + elst2.getStyle("a-new-prop"));
+        console.log("elst - " + elst2.get("webcam-on-btn"));        
+        console.log("elst - " + elst2.get("a-new-prop"));
 
+        var labels = HighresiO.Highbrow.Labels;
+        console.log("elst - " + labels.get("b-send"));        
+        console.log("elst - " + labels.get("l-feedback"));        
+
+        labels.init({
+            "b-feedback": "Your Gracious Inputs",
+            "b-send": "Kindly Deliver"
+        })
+        console.log("elst - " + labels.get("b-send"));        
+        console.log("elst - " + labels.get("l-feedback"));        
+
+        var labels2 = HighresiO.Highbrow.PhotoLabels;
+        console.log("elst - " + labels.get("b-send"));        
+        console.log("elst - " + labels.get("l-feedback"));        
+        console.log("elst - " + labels.get("b-snap"));        
     </script>
 
 

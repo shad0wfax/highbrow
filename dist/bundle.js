@@ -453,27 +453,12 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
 })(window);
 });
 
-require.define("/elstyles.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+require.define("/styles/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
 
-	// Highbrow.BaseElStyle = function(){};
-	// Highbrow.BaseElStyle = {
-	//     "email-box": "textbox",
-	//     "comm-box": "text-area",
-	//     "send-btn": "btn btn-small btn-primary"
-	// };
-
-	// Highbrow.PhotoElStyle = function(){};
-	// Highbrow.PhotoElStyle.prototype = Object.create(Highbrow.BaseElStyle.prototype);
-	// Highbrow.PhotoElStyle.prototype.styles = {
-	//     //"send-btn": "btn btn-large btn-success"
-	// };
-	// Highbrow.PhotoElStyle = Object.create(Highbrow.BaseElStyle);
-	// Highbrow.PhotoElStyle.prototype = {
-	// 	"comm-box": "text-area2",
-	// 	"send-btn": "btn btn-large btn-success"
-	// }
-
-	Highbrow.BaseElStyle = function(){
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	// The flaw here is that all the other styles that derive from this can change its state and there is only one copy of each style.
+	Highbrow.Styles = function(){
+		// List the styles
 		var styles = {
 		    "email-box": "textbox",
 		    "comm-box": "text-area",
@@ -490,7 +475,7 @@ require.define("/elstyles.js",function(require,module,exports,__dirname,__filena
 		        }
 		    }
 		}
-		var getStyle = function(style) {
+		var get = function(style) {
 			if (style)
 				return styles[style];
 			else 
@@ -499,24 +484,91 @@ require.define("/elstyles.js",function(require,module,exports,__dirname,__filena
 
 		return {
 			init: init,
-			getStyle: getStyle
+			get: get
 		}
 	}();
 
-	Highbrow.PhotoElStyle = function(){
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/styles/photo.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	Highbrow.PhotoStyles = function(){
 		var styles = {
 		    "email-box": "textbox-photo",
 		    "webcam-on-btn": "btn webcam-btn",
 		    "click-btn": "btn click-primary"
 		};
-		var baseStyles = Highbrow.BaseElStyle;
+		// Instance of ElStyles (this is the inheritence logic)
+		var baseStyles = Highbrow.Styles;
+		
 		// Init with photo style
 		baseStyles.init(styles);
 		return baseStyles;
 	}();
+})(window, HighresiO.Highbrow);
 
+});
 
+require.define("/labels/base_en.js",function(require,module,exports,__dirname,__filename,process,global){// This is content as key value pair. This makes it easy to support internalization.
+// One locale per file. 
+(function(window, Highbrow, undefined) {
 
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	// Designed this way to permit overriding by passing config in init
+	Highbrow.Labels = function(){
+		// List the labels
+		var labels = {
+		    "l-feedback": "Give Feedback",
+		    "b-feedback": "Feedback",
+		    "b-send": "Send"
+		};
+
+		var init = function(newLabels) {
+			if (!newLabels)
+				return
+		    
+		    for(var prop in newLabels) {
+		        if(newLabels.hasOwnProperty(prop)){
+		            labels[prop] = newLabels[prop];
+		        }
+		    }
+		}
+		var get = function(label) {
+			if (label)
+				return labels[label];
+			else 
+				return "";
+		}
+
+		return {
+			init: init,
+			get: get
+		}
+	}();
+
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/labels/photo_en.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	Highbrow.PhotoLabels = function(){
+		var labels = {
+		    "l-feedback": "Click a pic and share your feedback!",
+		    "b-feedback": "Send us a pic!",
+		    "b-snap": "Click"
+		};
+		// Instance of Labels (this is the inheritence logic)
+		var baseLabels = Highbrow.Labels;
+		
+		// Init with photo labels
+		baseLabels.init(labels);
+		return baseLabels;
+	}();
 })(window, HighresiO.Highbrow);
 
 });
@@ -564,7 +616,10 @@ require.define("/store.js",function(require,module,exports,__dirname,__filename,
 });
 
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var init = require("./init.js");
-var init = require("./elstyles.js");
+var init = require("./styles/base.js");
+var init = require("./styles/photo.js");
+var init = require("./labels/base_en.js");
+var init = require("./labels/photo_en.js");
 var app = require("./app.js");
 var router = require("./router.js");
 var store = require("./store.js");
