@@ -453,6 +453,74 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
 })(window);
 });
 
+require.define("/elstyles.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Highbrow.BaseElStyle = function(){};
+	// Highbrow.BaseElStyle = {
+	//     "email-box": "textbox",
+	//     "comm-box": "text-area",
+	//     "send-btn": "btn btn-small btn-primary"
+	// };
+
+	// Highbrow.PhotoElStyle = function(){};
+	// Highbrow.PhotoElStyle.prototype = Object.create(Highbrow.BaseElStyle.prototype);
+	// Highbrow.PhotoElStyle.prototype.styles = {
+	//     //"send-btn": "btn btn-large btn-success"
+	// };
+	// Highbrow.PhotoElStyle = Object.create(Highbrow.BaseElStyle);
+	// Highbrow.PhotoElStyle.prototype = {
+	// 	"comm-box": "text-area2",
+	// 	"send-btn": "btn btn-large btn-success"
+	// }
+
+	Highbrow.BaseElStyle = function(){
+		var styles = {
+		    "email-box": "textbox",
+		    "comm-box": "text-area",
+		    "send-btn": "btn btn-small btn-primary"
+		};
+
+		var init = function(newStyles) {
+			if (!newStyles)
+				return
+		    
+		    for(var prop in newStyles) {
+		        if(newStyles.hasOwnProperty(prop)){
+		            styles[prop] = newStyles[prop];
+		        }
+		    }
+		}
+		var getStyle = function(style) {
+			if (style)
+				return styles[style];
+			else 
+				return "";
+		}
+
+		return {
+			init: init,
+			getStyle: getStyle
+		}
+	}();
+
+	Highbrow.PhotoElStyle = function(){
+		var styles = {
+		    "email-box": "textbox-photo",
+		    "webcam-on-btn": "btn webcam-btn",
+		    "click-btn": "btn click-primary"
+		};
+		var baseStyles = Highbrow.BaseElStyle;
+		// Init with photo style
+		baseStyles.init(styles);
+		return baseStyles;
+	}();
+
+
+
+})(window, HighresiO.Highbrow);
+
+});
+
 require.define("/app.js",function(require,module,exports,__dirname,__filename,process,global){// Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
 (function(window, Highbrow, undefined) {
 
@@ -496,6 +564,7 @@ require.define("/store.js",function(require,module,exports,__dirname,__filename,
 });
 
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var init = require("./init.js");
+var init = require("./elstyles.js");
 var app = require("./app.js");
 var router = require("./router.js");
 var store = require("./store.js");

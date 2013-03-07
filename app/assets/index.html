@@ -30,6 +30,27 @@
         photo = new HighresiO.Highbrow.Photo();
         photo.snapPic();
 
+        var elst = HighresiO.Highbrow.BaseElStyle;
+        console.log("elst - " + elst.getStyle("send-btn"));
+
+        elst.init({
+           "send-btn": "btn btn-large btn-success",
+           "a-new-prop": "a-new-prop-added-now" 
+        });
+        console.log("elst - " + elst.getStyle("send-btn"));        
+        console.log("elst - " + elst.getStyle("a-new-prop"));
+
+        var elst2 =  HighresiO.Highbrow.PhotoElStyle;
+        console.log("elst - " + elst2.getStyle("send-btn"));
+        console.log("elst - " + elst2.getStyle("webcam-on-btn"));
+
+        elst2.init({
+           "webcam-on-btn": "changed-btn",
+           "a-new-prop": "a-new-prop-added-now-from-photo" 
+        });
+        console.log("elst - " + elst2.getStyle("webcam-on-btn"));        
+        console.log("elst - " + elst2.getStyle("a-new-prop"));
+
     </script>
 
 
