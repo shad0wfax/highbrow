@@ -23,7 +23,10 @@
     "stylus-brunch": ">= 1.0 < 1.6",
 
     "uglify-js-brunch": ">= 1.0 < 1.6",
-    "clean-css-brunch": ">= 1.0 < 1.6"
+    "clean-css-brunch": ">= 1.0 < 1.6",
+
+    "browserify": "1.18.0",
+    "handlebars": "1.0.10"
   },
   "devDependencies": {
     "chai": "1.2.0",

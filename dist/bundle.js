@@ -432,7 +432,7 @@ process.binding = function (name) {
 
 });
 
-require.define("/init.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, HighresiO, undefined) {
+require.define("/init.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, HighresiO, Handlebars, undefined) {
 	"use strict";
 	
 	// Define HighresiO as an object only if it doesn't exist. 
@@ -450,13 +450,32 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
     HighresiO.Highbrow.mainFunc = function(hi) {
         console.log("Saying " + hi + " from mainFunc");
     };
+
+    // Check if Handlebars already exist, if it doesn't create an object under Highbrow namespace. 
+    // The extern lib included in our project will be used.
+    Handlebars = window.Handlebars || (HighresiO.Highbrow.Handlebars = {});
+
+    // Attach it to Highbrow anyway 
+    HighresiO.Highbrow.Handlebars = Handlebars;
+
+
+    // if (window.Handlebars == undefined) {
+    // 	Handlebars = window.Handlebars;
+    // 	// Also attach it to Highbrow to simplify our coding.
+    // 	HighresiO.Highbrow.Handlebars = Handlebars
+    // } else {
+
+    // }
+    console.log("init::Handlebars = " + Handlebars);
+
 })(window);
 });
 
 require.define("/styles/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
 
 	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// The flaw here is that all the other styles that derive from this can change its state and there is only one copy of each style.
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
 	Highbrow.Styles = function(){
 		// List the styles
 		var styles = {
@@ -517,7 +536,8 @@ require.define("/labels/base_en.js",function(require,module,exports,__dirname,__
 (function(window, Highbrow, undefined) {
 
 	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// Designed this way to permit overriding by passing config in init
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
 	Highbrow.Labels = function(){
 		// List the labels
 		var labels = {
@@ -593,6 +613,13 @@ require.define("/app.js",function(require,module,exports,__dirname,__filename,pr
 
 	Highbrow.Photo.prototype.snapPic = function() {
 	    console.log(this.options);
+	
+		var template = Highbrow.Handlebars.templates["test.hbs"];
+	    
+	    var div = document.createElement("div");
+	    div.innerHTML = template({foo: "bar"});
+
+	    if(document.body != null){ document.body.appendChild(div);}
 	}
 })(window, HighresiO.Highbrow);
 
@@ -615,6 +642,285 @@ require.define("/store.js",function(require,module,exports,__dirname,__filename,
 
 });
 
+require.define("/extern/handlebars.runtime-1.0.rc.1.hibrow.js",function(require,module,exports,__dirname,__filename,process,global){// lib/handlebars/base.js
+
+/*jshint eqnull:true*/
+// Changed by Akshay for Highbrow:
+// this.Handlebars = {};
+var Handlebars = window.HighresiO.Highbrow.Handlebars;
+
+(function(Handlebars) {
+
+Handlebars.VERSION = "1.0.rc.1";
+
+Handlebars.helpers  = {};
+Handlebars.partials = {};
+
+Handlebars.registerHelper = function(name, fn, inverse) {
+  if(inverse) { fn.not = inverse; }
+  this.helpers[name] = fn;
+};
+
+Handlebars.registerPartial = function(name, str) {
+  this.partials[name] = str;
+};
+
+Handlebars.registerHelper('helperMissing', function(arg) {
+  if(arguments.length === 2) {
+    return undefined;
+  } else {
+    throw new Error("Could not find property '" + arg + "'");
+  }
+});
+
+var toString = Object.prototype.toString, functionType = "[object Function]";
+
+Handlebars.registerHelper('blockHelperMissing', function(context, options) {
+  var inverse = options.inverse || function() {}, fn = options.fn;
+
+
+  var ret = "";
+  var type = toString.call(context);
+
+  if(type === functionType) { context = context.call(this); }
+
+  if(context === true) {
+    return fn(this);
+  } else if(context === false || context == null) {
+    return inverse(this);
+  } else if(type === "[object Array]") {
+    if(context.length > 0) {
+      return Handlebars.helpers.each(context, options);
+    } else {
+      return inverse(this);
+    }
+  } else {
+    return fn(context);
+  }
+});
+
+Handlebars.K = function() {};
+
+Handlebars.createFrame = Object.create || function(object) {
+  Handlebars.K.prototype = object;
+  var obj = new Handlebars.K();
+  Handlebars.K.prototype = null;
+  return obj;
+};
+
+Handlebars.registerHelper('each', function(context, options) {
+  var fn = options.fn, inverse = options.inverse;
+  var ret = "", data;
+
+  if (options.data) {
+    data = Handlebars.createFrame(options.data);
+  }
+
+  if(context && context.length > 0) {
+    for(var i=0, j=context.length; i<j; i++) {
+      if (data) { data.index = i; }
+      ret = ret + fn(context[i], { data: data });
+    }
+  } else {
+    ret = inverse(this);
+  }
+  return ret;
+});
+
+Handlebars.registerHelper('if', function(context, options) {
+  var type = toString.call(context);
+  if(type === functionType) { context = context.call(this); }
+
+  if(!context || Handlebars.Utils.isEmpty(context)) {
+    return options.inverse(this);
+  } else {
+    return options.fn(this);
+  }
+});
+
+Handlebars.registerHelper('unless', function(context, options) {
+  var fn = options.fn, inverse = options.inverse;
+  options.fn = inverse;
+  options.inverse = fn;
+
+  return Handlebars.helpers['if'].call(this, context, options);
+});
+
+Handlebars.registerHelper('with', function(context, options) {
+  return options.fn(context);
+});
+
+Handlebars.registerHelper('log', function(context) {
+  Handlebars.log(context);
+});
+
+}(Handlebars));
+;
+// lib/handlebars/utils.js
+Handlebars.Exception = function(message) {
+  var tmp = Error.prototype.constructor.apply(this, arguments);
+
+  for (var p in tmp) {
+    if (tmp.hasOwnProperty(p)) { this[p] = tmp[p]; }
+  }
+
+  this.message = tmp.message;
+};
+Handlebars.Exception.prototype = new Error();
+
+// Build out our basic SafeString type
+Handlebars.SafeString = function(string) {
+  this.string = string;
+};
+Handlebars.SafeString.prototype.toString = function() {
+  return this.string.toString();
+};
+
+(function() {
+  var escape = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#x27;",
+    "`": "&#x60;"
+  };
+
+  var badChars = /[&<>"'`]/g;
+  var possible = /[&<>"'`]/;
+
+  var escapeChar = function(chr) {
+    return escape[chr] || "&amp;";
+  };
+
+  Handlebars.Utils = {
+    escapeExpression: function(string) {
+      // don't escape SafeStrings, since they're already safe
+      if (string instanceof Handlebars.SafeString) {
+        return string.toString();
+      } else if (string == null || string === false) {
+        return "";
+      }
+
+      if(!possible.test(string)) { return string; }
+      return string.replace(badChars, escapeChar);
+    },
+
+    isEmpty: function(value) {
+      if (typeof value === "undefined") {
+        return true;
+      } else if (value === null) {
+        return true;
+      } else if (value === false) {
+        return true;
+      } else if(Object.prototype.toString.call(value) === "[object Array]" && value.length === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+})();;
+// lib/handlebars/runtime.js
+Handlebars.VM = {
+  template: function(templateSpec) {
+    // Just add water
+    var container = {
+      escapeExpression: Handlebars.Utils.escapeExpression,
+      invokePartial: Handlebars.VM.invokePartial,
+      programs: [],
+      program: function(i, fn, data) {
+        var programWrapper = this.programs[i];
+        if(data) {
+          return Handlebars.VM.program(fn, data);
+        } else if(programWrapper) {
+          return programWrapper;
+        } else {
+          programWrapper = this.programs[i] = Handlebars.VM.program(fn);
+          return programWrapper;
+        }
+      },
+      programWithDepth: Handlebars.VM.programWithDepth,
+      noop: Handlebars.VM.noop
+    };
+
+    return function(context, options) {
+      options = options || {};
+      return templateSpec.call(container, Handlebars, context, options.helpers, options.partials, options.data);
+    };
+  },
+
+  programWithDepth: function(fn, data, $depth) {
+    var args = Array.prototype.slice.call(arguments, 2);
+
+    return function(context, options) {
+      options = options || {};
+
+      return fn.apply(this, [context, options.data || data].concat(args));
+    };
+  },
+  program: function(fn, data) {
+    return function(context, options) {
+      options = options || {};
+
+      return fn(context, options.data || data);
+    };
+  },
+  noop: function() { return ""; },
+  invokePartial: function(partial, name, context, helpers, partials, data) {
+    var options = { helpers: helpers, partials: partials, data: data };
+
+    if(partial === undefined) {
+      throw new Handlebars.Exception("The partial " + name + " could not be found");
+    } else if(partial instanceof Function) {
+      return partial(context, options);
+    } else if (!Handlebars.compile) {
+      throw new Handlebars.Exception("The partial " + name + " could not be compiled when running in runtime-only mode");
+    } else {
+      partials[name] = Handlebars.compile(partial, {data: data !== undefined});
+      return partials[name](context, options);
+    }
+  }
+};
+
+Handlebars.template = Handlebars.VM.template;
+;
+});
+
+require.define("/templates/all_templates_output.js",function(require,module,exports,__dirname,__filename,process,global){// Akshay hack - Added the following line to the TEMPLATES_OUTPUT_FILE in order for the variable Handlebars to be visible.
+var Handlebars = window.Handlebars || window.HighresiO.Highbrow.Handlebars;
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['test.hbs'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<div>\n	";
+  if (stack1 = helpers.foo) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.foo; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\n</div>";
+  return buffer;
+  });
+templates['test2.hbs'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<div>\n	";
+  if (stack1 = helpers.whoha) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.whoha; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\n</div>";
+  return buffer;
+  });
+})();
+
+});
+
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var init = require("./init.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
@@ -623,6 +929,15 @@ var init = require("./labels/photo_en.js");
 var app = require("./app.js");
 var router = require("./router.js");
 var store = require("./store.js");
+
+// Extern lib - load only if Handlebars hasn't been defined.
+// Browserify built file prevents the IIFE of our custom Handlerbars this way.
+if (window.Handlebars === undefined) {
+	var store = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
+}
+
+var output = require("./templates/all_templates_output.js");
+
 console.log("Loaded all scripts!")
 
 });

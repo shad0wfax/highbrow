@@ -18,5 +18,12 @@
 
 	Highbrow.Photo.prototype.snapPic = function() {
 	    console.log(this.options);
+	
+		var template = Highbrow.Handlebars.templates["test.hbs"];
+	    
+	    var div = document.createElement("div");
+	    div.innerHTML = template({foo: "bar"});
+
+	    if(document.body != null){ document.body.appendChild(div);}
 	}
 })(window, HighresiO.Highbrow);

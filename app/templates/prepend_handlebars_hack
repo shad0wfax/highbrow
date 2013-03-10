@@ -1,0 +1,2 @@
+// Akshay hack - Added the following line to the TEMPLATES_OUTPUT_FILE in order for the variable Handlebars to be visible.
+var Handlebars = window.Handlebars || window.HighresiO.Highbrow.Handlebars;
