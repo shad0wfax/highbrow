@@ -1,7 +1,8 @@
 (function(window, Highbrow, undefined) {
 
 	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// The flaw here is that all the other styles that derive from this can change its state and there is only one copy of each style.
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
 	Highbrow.Styles = function(){
 		// List the styles
 		var styles = {

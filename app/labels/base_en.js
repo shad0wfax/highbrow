@@ -3,7 +3,8 @@
 (function(window, Highbrow, undefined) {
 
 	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// Designed this way to permit overriding by passing config in init
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
 	Highbrow.Labels = function(){
 		// List the labels
 		var labels = {
