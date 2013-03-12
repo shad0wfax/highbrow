@@ -445,12 +445,6 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
     // Inner scope - All things will reside inside Highbrow.
 	HighresiO.Highbrow = {};
 
-	console.log(window.HighresiO);
-
-    HighresiO.Highbrow.mainFunc = function(hi) {
-        console.log("Saying " + hi + " from mainFunc");
-    };
-
     // Check if Handlebars already exist, if it doesn't create an object under Highbrow namespace. 
     // The extern lib included in our project will be used.
     Handlebars = window.Handlebars || (HighresiO.Highbrow.Handlebars = {});
@@ -458,17 +452,25 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
     // Attach it to Highbrow anyway 
     HighresiO.Highbrow.Handlebars = Handlebars;
 
-
-    // if (window.Handlebars == undefined) {
-    // 	Handlebars = window.Handlebars;
-    // 	// Also attach it to Highbrow to simplify our coding.
-    // 	HighresiO.Highbrow.Handlebars = Handlebars
-    // } else {
-
-    // }
-    console.log("init::Handlebars = " + Handlebars);
+	/**
+	 * A test function - remove it :)
+	 */
+    HighresiO.Highbrow.mainFunc = function(hi) {
+    	// Functions will have access to log from util package, if they aren't invoked with in this file.
+    	HighresiO.Highbrow.log("Saying " + hi + " from mainFunc");
+    };
 
 })(window);
+});
+
+require.define("/util.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {	
+    //TODO: Disable for production...
+    var cons = window.console || {log: function(msg){}};
+    Highbrow.log = function(msg) {
+        cons.log(msg);
+    };
+
+})(window, HighresiO.Highbrow);
 });
 
 require.define("/styles/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
@@ -597,7 +599,7 @@ require.define("/app.js",function(require,module,exports,__dirname,__filename,pr
 (function(window, Highbrow, undefined) {
 
 	Highbrow.func1 = function() {
-	    //console.log(Highbrow);
+	    //Highbrow.log(Highbrow);
 	    Highbrow.mainFunc(" Hi called from app.js");
 	};
 
@@ -606,13 +608,13 @@ require.define("/app.js",function(require,module,exports,__dirname,__filename,pr
 	    options.emailAdd =  options.emailAdd || "noadd@noadd.com";
 	    options.emailLabel =  options.emailLabel || "Email adress (optional)";
 
-	    console.log(options);
-	    console.log("returning this - " + this);
+	    Highbrow.log(options);
+	    Highbrow.log("returning this - " + this);
 	    return this;
 	};
 
 	Highbrow.Photo.prototype.snapPic = function() {
-	    console.log(this.options);
+	    Highbrow.log(this.options);
 	
 		var template = Highbrow.Handlebars.templates["test.hbs"];
 	    
@@ -924,6 +926,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
 });
 
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var init = require("./init.js");
+var init = require("./util.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
 var init = require("./labels/base_en.js");
@@ -940,7 +943,7 @@ if (window.Handlebars === undefined) {
 
 var output = require("./templates/all_templates_output.js");
 
-console.log("Loaded all scripts!")
+HighresiO.Highbrow.log("Loaded all scripts from entry.js!")
 
 });
 require("/entry.js");

@@ -25,54 +25,55 @@
     <script>
         // TODO: Push these to a test class :)
         HighresiO0.olfunc();    
-        HighresiO.Highbrow.func1();
-        HighresiO.Highbrow.func2();
-        HighresiO.Highbrow.func3();
+        var hibrow =  HighresiO.Highbrow;
+        hibrow.func1();
+        hibrow.func2();
+        hibrow.func3();
         
-        var photo = new HighresiO.Highbrow.Photo({
+        var photo = new hibrow.Photo({
             "emailAdd": "akshay@aa.com"
         })
         photo.snapPic();
 
-        photo = new HighresiO.Highbrow.Photo();
+        photo = new hibrow.Photo();
         photo.snapPic();
 
-        var elst = HighresiO.Highbrow.Styles;
-        console.log("elst - " + elst.get("send-btn"));
+        var elst = hibrow.Styles;
+        hibrow.log("elst - " + elst.get("send-btn"));
 
         elst.init({
            "send-btn": "btn btn-large btn-success",
            "a-new-prop": "a-new-prop-added-now" 
         });
-        console.log("elst - " + elst.get("send-btn"));        
-        console.log("elst - " + elst.get("a-new-prop"));
+        hibrow.log("elst - " + elst.get("send-btn"));        
+        hibrow.log("elst - " + elst.get("a-new-prop"));
 
-        var elst2 =  HighresiO.Highbrow.PhotoStyles;
-        console.log("elst - " + elst2.get("send-btn"));
-        console.log("elst - " + elst2.get("webcam-on-btn"));
+        var elst2 =  hibrow.PhotoStyles;
+        hibrow.log("elst - " + elst2.get("send-btn"));
+        hibrow.log("elst - " + elst2.get("webcam-on-btn"));
 
         elst2.init({
            "webcam-on-btn": "changed-btn",
            "a-new-prop": "a-new-prop-added-now-from-photo" 
         });
-        console.log("elst - " + elst2.get("webcam-on-btn"));        
-        console.log("elst - " + elst2.get("a-new-prop"));
+        hibrow.log("elst - " + elst2.get("webcam-on-btn"));        
+        hibrow.log("elst - " + elst2.get("a-new-prop"));
 
-        var labels = HighresiO.Highbrow.Labels;
-        console.log("elst - " + labels.get("b-send"));        
-        console.log("elst - " + labels.get("l-feedback"));        
+        var labels = hibrow.Labels;
+        hibrow.log("elst - " + labels.get("b-send"));        
+        hibrow.log("elst - " + labels.get("l-feedback"));        
 
         labels.init({
             "b-feedback": "Your Gracious Inputs",
             "b-send": "Kindly Deliver"
         })
-        console.log("elst - " + labels.get("b-send"));        
-        console.log("elst - " + labels.get("l-feedback"));        
+        hibrow.log("elst - " + labels.get("b-send"));        
+        hibrow.log("elst - " + labels.get("l-feedback"));        
 
-        var labels2 = HighresiO.Highbrow.PhotoLabels;
-        console.log("elst - " + labels.get("b-send"));        
-        console.log("elst - " + labels.get("l-feedback"));        
-        console.log("elst - " + labels.get("b-snap"));        
+        var labels2 = hibrow.PhotoLabels;
+        hibrow.log("elst - " + labels.get("b-send"));        
+        hibrow.log("elst - " + labels.get("l-feedback"));        
+        hibrow.log("elst - " + labels.get("b-snap"));        
     </script>
 
 

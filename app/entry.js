@@ -1,4 +1,5 @@
 var init = require("./init.js");
+var init = require("./util.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
 var init = require("./labels/base_en.js");
@@ -15,4 +16,4 @@ if (window.Handlebars === undefined) {
 
 var output = require("./templates/all_templates_output.js");
 
-console.log("Loaded all scripts!")
+HighresiO.Highbrow.log("Loaded all scripts from entry.js!")

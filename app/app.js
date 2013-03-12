@@ -2,7 +2,7 @@
 (function(window, Highbrow, undefined) {
 
 	Highbrow.func1 = function() {
-	    //console.log(Highbrow);
+	    //Highbrow.log(Highbrow);
 	    Highbrow.mainFunc(" Hi called from app.js");
 	};
 
@@ -11,13 +11,13 @@
 	    options.emailAdd =  options.emailAdd || "noadd@noadd.com";
 	    options.emailLabel =  options.emailLabel || "Email adress (optional)";
 
-	    console.log(options);
-	    console.log("returning this - " + this);
+	    Highbrow.log(options);
+	    Highbrow.log("returning this - " + this);
 	    return this;
 	};
 
 	Highbrow.Photo.prototype.snapPic = function() {
-	    console.log(this.options);
+	    Highbrow.log(this.options);
 	
 		var template = Highbrow.Handlebars.templates["test.hbs"];
 	    

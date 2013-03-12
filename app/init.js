@@ -11,12 +11,6 @@
     // Inner scope - All things will reside inside Highbrow.
 	HighresiO.Highbrow = {};
 
-	console.log(window.HighresiO);
-
-    HighresiO.Highbrow.mainFunc = function(hi) {
-        console.log("Saying " + hi + " from mainFunc");
-    };
-
     // Check if Handlebars already exist, if it doesn't create an object under Highbrow namespace. 
     // The extern lib included in our project will be used.
     Handlebars = window.Handlebars || (HighresiO.Highbrow.Handlebars = {});
@@ -24,14 +18,12 @@
     // Attach it to Highbrow anyway 
     HighresiO.Highbrow.Handlebars = Handlebars;
 
-
-    // if (window.Handlebars == undefined) {
-    // 	Handlebars = window.Handlebars;
-    // 	// Also attach it to Highbrow to simplify our coding.
-    // 	HighresiO.Highbrow.Handlebars = Handlebars
-    // } else {
-
-    // }
-    console.log("init::Handlebars = " + Handlebars);
+	/**
+	 * A test function - remove it :)
+	 */
+    HighresiO.Highbrow.mainFunc = function(hi) {
+    	// Functions will have access to log from util package, if they aren't invoked with in this file.
+    	HighresiO.Highbrow.log("Saying " + hi + " from mainFunc");
+    };
 
 })(window);
