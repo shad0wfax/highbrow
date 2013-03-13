@@ -457,191 +457,10 @@ require.define("/init.js",function(require,module,exports,__dirname,__filename,p
 	 */
     HighresiO.Highbrow.mainFunc = function(hi) {
     	// Functions will have access to log from util package, if they aren't invoked with in this file.
-    	HighresiO.Highbrow.log("Saying " + hi + " from mainFunc");
+    	HighresiO.Highbrow.Util.log("Saying " + hi + " from mainFunc");
     };
 
 })(window);
-});
-
-require.define("/util.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {	
-    //TODO: Disable for production...
-    var cons = window.console || {log: function(msg){}};
-    Highbrow.log = function(msg) {
-        cons.log(msg);
-    };
-
-})(window, HighresiO.Highbrow);
-});
-
-require.define("/styles/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
-
-	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// Designed this way to permit overriding by passing config in init.
-	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
-	Highbrow.Styles = function(){
-		// List the styles
-		var styles = {
-		    "email-box": "textbox",
-		    "comm-box": "text-area",
-		    "send-btn": "btn btn-small btn-primary"
-		};
-
-		var init = function(newStyles) {
-			if (!newStyles)
-				return
-		    
-		    for(var prop in newStyles) {
-		        if(newStyles.hasOwnProperty(prop)){
-		            styles[prop] = newStyles[prop];
-		        }
-		    }
-		}
-		var get = function(style) {
-			if (style)
-				return styles[style];
-			else 
-				return "";
-		}
-
-		return {
-			init: init,
-			get: get
-		}
-	}();
-
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/styles/photo.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
-
-	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	Highbrow.PhotoStyles = function(){
-		var styles = {
-		    "email-box": "textbox-photo",
-		    "webcam-on-btn": "btn webcam-btn",
-		    "click-btn": "btn click-primary"
-		};
-		// Instance of ElStyles (this is the inheritence logic)
-		var baseStyles = Highbrow.Styles;
-		
-		// Init with photo style
-		baseStyles.init(styles);
-		return baseStyles;
-	}();
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/labels/base_en.js",function(require,module,exports,__dirname,__filename,process,global){// This is content as key value pair. This makes it easy to support internalization.
-// One locale per file. 
-(function(window, Highbrow, undefined) {
-
-	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	// Designed this way to permit overriding by passing config in init.
-	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
-	Highbrow.Labels = function(){
-		// List the labels
-		var labels = {
-		    "l-feedback": "Give Feedback",
-		    "b-feedback": "Feedback",
-		    "b-send": "Send"
-		};
-
-		var init = function(newLabels) {
-			if (!newLabels)
-				return
-		    
-		    for(var prop in newLabels) {
-		        if(newLabels.hasOwnProperty(prop)){
-		            labels[prop] = newLabels[prop];
-		        }
-		    }
-		}
-		var get = function(label) {
-			if (label)
-				return labels[label];
-			else 
-				return "";
-		}
-
-		return {
-			init: init,
-			get: get
-		}
-	}();
-
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/labels/photo_en.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
-
-	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
-	Highbrow.PhotoLabels = function(){
-		var labels = {
-		    "l-feedback": "Click a pic and share your feedback!",
-		    "b-feedback": "Send us a pic!",
-		    "b-snap": "Click"
-		};
-		// Instance of Labels (this is the inheritence logic)
-		var baseLabels = Highbrow.Labels;
-		
-		// Init with photo labels
-		baseLabels.init(labels);
-		return baseLabels;
-	}();
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/app.js",function(require,module,exports,__dirname,__filename,process,global){// Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
-(function(window, Highbrow, undefined) {
-
-	Highbrow.func1 = function() {
-	    //Highbrow.log(Highbrow);
-	    Highbrow.mainFunc(" Hi called from app.js");
-	};
-
-	Highbrow.Photo = function (options) {
-	    this.options = options || (options = {});
-	    options.emailAdd =  options.emailAdd || "noadd@noadd.com";
-	    options.emailLabel =  options.emailLabel || "Email adress (optional)";
-
-	    Highbrow.log(options);
-	    Highbrow.log("returning this - " + this);
-	    return this;
-	};
-
-	Highbrow.Photo.prototype.snapPic = function() {
-	    Highbrow.log(this.options);
-	
-		var template = Highbrow.Handlebars.templates["test.hbs"];
-	    
-	    var div = document.createElement("div");
-	    div.innerHTML = template({foo: "bar"});
-
-	    if(document.body != null){ document.body.appendChild(div);}
-	}
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/router.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
-	Highbrow.func2 = function() {
-	    Highbrow.mainFunc(" Hi called from router.js");
-	};
-
-})(window, HighresiO.Highbrow);
-
-});
-
-require.define("/store.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
-	Highbrow.func3 = function() {
-	    Highbrow.mainFunc(" Hi called from store.js");
-	};
-})(window, HighresiO.Highbrow);
-
 });
 
 require.define("/extern/handlebars.runtime-1.0.rc.1.hibrow.js",function(require,module,exports,__dirname,__filename,process,global){// lib/handlebars/base.js
@@ -889,6 +708,247 @@ Handlebars.template = Handlebars.VM.template;
 ;
 });
 
+require.define("/util.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, Handlebars, undefined) {	
+	// Util namespace
+	Highbrow.Util = Highbrow.Util || (Highbrow.Util = {});
+
+    //TODO: Disable for production...
+    var cons = window.console || {log: function(msg){}};
+    Highbrow.Util.log = function(msg) {
+        cons.log(msg);
+    };
+
+    Highbrow.Util.getProp = function(prop, obj) {
+		if (prop) {
+			var s = obj[prop]; 
+			return s ? s : "";
+		} else {
+			return "";
+		}
+    };
+
+    // var registerHandlebarHooks = (function() {
+	   //  var h = Highbrow.Handlebars;
+	   //  // Style helper
+	   //  h.registerHelper("sty", function(context, key) {
+	   //  	var r = Highbrow.Styles.get(key);
+	   //  	Highbrow.Util.log("style helper, returning:" + r + " for key " + JSON.stringify(context) + JSON.stringify(key));
+	   //  	return Highbrow.Handlebars.SafeString(r);
+	    	
+	   //  });
+	   //  // Label helper
+	   //  h.registerHelper("lab", function(key) {
+	   //  	var r = Highbrow.Labels.get(key);
+	   //  	Highbrow.Util.log("Labels helper, returning:" + r + " for key " + key);
+	   //  	return Highbrow.Handlebars.SafeString(r);
+	   //  });	    	
+    // })();
+
+    // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
+    Highbrow.Util.handlebarsContext = function() {
+    	// TODO: Cache this for repeated lookups.
+    	return {
+    		"s": Highbrow.Styles.all(),
+    		"l": Highbrow.Labels.all()
+    	}
+
+    }
+
+})(window, HighresiO.Highbrow);
+});
+
+require.define("/styles/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
+	Highbrow.Styles = function(){
+		// List the styles
+		var styles = {
+		    "email-box": "textbox",
+		    "comm-box": "text-area",
+		    "send-btn": "btn btn-small btn-primary"
+		};
+
+		// Will add and override the passed in styles. Designed to override from inheritence.
+		var init = function(newStyles) {
+			if (!newStyles)
+				return
+		    
+		    for(var prop in newStyles) {
+		        if(newStyles.hasOwnProperty(prop)){
+		            styles[prop] = newStyles[prop];
+		        }
+		    }
+		};
+		
+		var get = function(style) {
+			return Highbrow.Util.getProp(style, styles);
+		};
+
+		var all = function() {
+			return styles;
+		};
+
+		return {
+			init: init,
+			get: get,
+			all:all
+		}
+	}();
+
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/styles/photo.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	Highbrow.PhotoStyles = function(){
+		var styles = {
+		    "email-box": "textbox-photo",
+		    "webcam-on-btn": "btn webcam-btn",
+		    "click-btn": "btn click-primary"
+		};
+		// Instance of ElStyles (this is the inheritence logic)
+		var baseStyles = Highbrow.Styles;
+		
+		// Init with photo style
+		baseStyles.init(styles);
+		return baseStyles;
+	}();
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/labels/base_en.js",function(require,module,exports,__dirname,__filename,process,global){// This is content as key value pair. This makes it easy to support internalization.
+// One locale per file. 
+(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	// Designed this way to permit overriding by passing config in init.
+	// Has the flaw of singleton inheritance (one child changing affects others.), but it is also how we want it.
+	Highbrow.Labels = function(){
+		// List the labels
+		var labels = {
+		    "l-feedback": "Give Feedback",
+		    "b-feedback": "Feedback",
+		    "b-send": "Send"
+		};
+
+		// Will add and override the passed in labels. Designed to override from inheritence.
+		var init = function(newLabels) {
+			if (!newLabels)
+				return
+		    
+		    for(var prop in newLabels) {
+		        if(newLabels.hasOwnProperty(prop)){
+		            labels[prop] = newLabels[prop];
+		        }
+		    }
+		};
+
+		var get = function(label) {
+			return Highbrow.Util.getProp(label, labels);
+		};
+
+		var all = function() {
+			return labels;
+		};
+
+		return {
+			init: init,
+			get: get,
+			all: all
+		};
+	}();
+
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/labels/photo_en.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	// Based on Functional inheritance pattern as defined by Douglas Crockford. 
+	Highbrow.PhotoLabels = function(){
+		var labels = {
+		    "l-feedback": "Click a pic and share your feedback!",
+		    "b-feedback": "Send us a pic!",
+		    "b-snap": "Click"
+		};
+		// Instance of Labels (this is the inheritence logic)
+		var baseLabels = Highbrow.Labels;
+		
+		// Init with photo labels
+		baseLabels.init(labels);
+		return baseLabels;
+	}();
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/app.js",function(require,module,exports,__dirname,__filename,process,global){// Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
+(function(window, Highbrow, undefined) {
+	var util = Highbrow.Util;
+	
+	Highbrow.func1 = function() {
+	    //util.log(Highbrow);
+	    Highbrow.mainFunc(" Hi called from app.js");
+	};
+
+	Highbrow.Photo = function (options) {
+	    this.options = options || (options = {});
+	    options.emailAdd =  options.emailAdd || "noadd@noadd.com";
+	    options.emailLabel =  options.emailLabel || "Email adress (optional)";
+
+	    util.log(options);
+	    util.log("returning this - " + this);
+	    return this;
+	};
+
+	Highbrow.Photo.prototype.snapPic = function() {
+	    util.log(this.options);
+	
+		var template = Highbrow.Handlebars.templates["test.hbs"];
+	    
+	    var div = document.createElement("div");
+	    // var c = {
+	    // 	"s": {
+			  //   "email-box": "textbox",
+			  //   "comm-box": "text-area",
+			  //   "send-btn": "btn btn-small btn-primary"
+	    // 	},
+	    // 	"l": {
+			  //   "l-feedback": "Give Feedback",
+			  //   "b-feedback": "Feedback",
+			  //   "b-send": "Send"	    		
+	    // 	}
+	    // }
+	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
+
+	    if(document.body != null){ document.body.appendChild(div);}
+	}
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/router.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+	Highbrow.func2 = function() {
+	    Highbrow.mainFunc(" Hi called from router.js");
+	};
+
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/store.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+	Highbrow.func3 = function() {
+	    Highbrow.mainFunc(" Hi called from store.js");
+	};
+})(window, HighresiO.Highbrow);
+
+});
+
 require.define("/templates/all_templates_output.js",function(require,module,exports,__dirname,__filename,process,global){// A hacky way to do things, but a necessity.
 // The content of this file will be included (prepended) in the output file generated by handlebars template.
 // Hanbdlebar pre-compiled templates need variables/configuration and this file can contain them.
@@ -901,11 +961,17 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n	";
-  if (stack1 = helpers.foo) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.foo; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\n</div>";
+  buffer += "<div>\n	<p>\n		<div id=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n			<h4>"
+    + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-feedback'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n			<h4>"
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n			<h4>\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"</h4>\n		</div>\n	</p>\n</div>";
   return buffer;
   });
 templates['test2.hbs'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -922,10 +988,17 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   return buffer;
   });
 })();
-
 });
 
 require.define("/entry.js",function(require,module,exports,__dirname,__filename,process,global){var init = require("./init.js");
+
+// Extern lib - load only if Handlebars hasn't been defined. 
+// Has to be loaded before util.js
+// Browserify built file prevents the IIFE of our custom Handlerbars this way.
+// if (window.Handlebars === undefined) {
+	var handlebars = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
+// }
+
 var init = require("./util.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
@@ -935,15 +1008,10 @@ var app = require("./app.js");
 var router = require("./router.js");
 var store = require("./store.js");
 
-// Extern lib - load only if Handlebars hasn't been defined.
-// Browserify built file prevents the IIFE of our custom Handlerbars this way.
-if (window.Handlebars === undefined) {
-	var store = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
-}
 
 var output = require("./templates/all_templates_output.js");
 
-HighresiO.Highbrow.log("Loaded all scripts from entry.js!")
+HighresiO.Highbrow.Util.log("Loaded all scripts from entry.js!")
 
 });
 require("/entry.js");

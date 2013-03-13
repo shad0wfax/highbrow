@@ -11,6 +11,7 @@
 		    "send-btn": "btn btn-small btn-primary"
 		};
 
+		// Will add and override the passed in styles. Designed to override from inheritence.
 		var init = function(newStyles) {
 			if (!newStyles)
 				return
@@ -20,17 +21,20 @@
 		            styles[prop] = newStyles[prop];
 		        }
 		    }
-		}
+		};
+		
 		var get = function(style) {
-			if (style)
-				return styles[style];
-			else 
-				return "";
-		}
+			return Highbrow.Util.getProp(style, styles);
+		};
+
+		var all = function() {
+			return styles;
+		};
 
 		return {
 			init: init,
-			get: get
+			get: get,
+			all:all
 		}
 	}();
 

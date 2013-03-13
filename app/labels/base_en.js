@@ -13,6 +13,7 @@
 		    "b-send": "Send"
 		};
 
+		// Will add and override the passed in labels. Designed to override from inheritence.
 		var init = function(newLabels) {
 			if (!newLabels)
 				return
@@ -22,18 +23,21 @@
 		            labels[prop] = newLabels[prop];
 		        }
 		    }
-		}
+		};
+
 		var get = function(label) {
-			if (label)
-				return labels[label];
-			else 
-				return "";
-		}
+			return Highbrow.Util.getProp(label, labels);
+		};
+
+		var all = function() {
+			return labels;
+		};
 
 		return {
 			init: init,
-			get: get
-		}
+			get: get,
+			all: all
+		};
 	}();
 
 })(window, HighresiO.Highbrow);

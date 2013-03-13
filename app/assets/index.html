@@ -39,41 +39,41 @@
         photo.snapPic();
 
         var elst = hibrow.Styles;
-        hibrow.log("elst - " + elst.get("send-btn"));
+        hibrow.Util.log("elst - " + elst.get("send-btn"));
 
         elst.init({
            "send-btn": "btn btn-large btn-success",
            "a-new-prop": "a-new-prop-added-now" 
         });
-        hibrow.log("elst - " + elst.get("send-btn"));        
-        hibrow.log("elst - " + elst.get("a-new-prop"));
+        hibrow.Util.log("elst - " + elst.get("send-btn"));        
+        hibrow.Util.log("elst - " + elst.get("a-new-prop"));
 
         var elst2 =  hibrow.PhotoStyles;
-        hibrow.log("elst - " + elst2.get("send-btn"));
-        hibrow.log("elst - " + elst2.get("webcam-on-btn"));
+        hibrow.Util.log("elst - " + elst2.get("send-btn"));
+        hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));
 
         elst2.init({
            "webcam-on-btn": "changed-btn",
            "a-new-prop": "a-new-prop-added-now-from-photo" 
         });
-        hibrow.log("elst - " + elst2.get("webcam-on-btn"));        
-        hibrow.log("elst - " + elst2.get("a-new-prop"));
+        hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));        
+        hibrow.Util.log("elst - " + elst2.get("a-new-prop"));
 
         var labels = hibrow.Labels;
-        hibrow.log("elst - " + labels.get("b-send"));        
-        hibrow.log("elst - " + labels.get("l-feedback"));        
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
 
         labels.init({
             "b-feedback": "Your Gracious Inputs",
             "b-send": "Kindly Deliver"
         })
-        hibrow.log("elst - " + labels.get("b-send"));        
-        hibrow.log("elst - " + labels.get("l-feedback"));        
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
 
         var labels2 = hibrow.PhotoLabels;
-        hibrow.log("elst - " + labels.get("b-send"));        
-        hibrow.log("elst - " + labels.get("l-feedback"));        
-        hibrow.log("elst - " + labels.get("b-snap"));        
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
+        hibrow.Util.log("elst - " + labels.get("b-snap"));        
     </script>
 
 

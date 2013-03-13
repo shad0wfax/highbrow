@@ -23,7 +23,7 @@
 	 */
     HighresiO.Highbrow.mainFunc = function(hi) {
     	// Functions will have access to log from util package, if they aren't invoked with in this file.
-    	HighresiO.Highbrow.log("Saying " + hi + " from mainFunc");
+    	HighresiO.Highbrow.Util.log("Saying " + hi + " from mainFunc");
     };
 
 })(window);

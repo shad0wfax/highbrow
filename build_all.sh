@@ -21,7 +21,9 @@ rm ./app/templates/$TEMPLATES_OUTPUT_FILE 2>/dev/null
 echo ".......................Generate templates: Running Handlebars to create a single tempalte file........................"
 # Akshay hack - Added the following line to the TEMPLATES_OUTPUT_FILE in order for the variable Handlebars to be visible.
 cat ./app/templates/$HANDLEBARS_HACK_INCLUDE_FILE >  ./app/templates/$TEMPLATES_OUTPUT_FILE
-$NODE_BIN/handlebars ./app/templates/*.hbs >> ./app/templates/$TEMPLATES_OUTPUT_FILE
+$NODE_BIN/handlebars ./app/templates/*.hbs -f ./app/templates/temp_file  -k l -k s
+cat ./app/templates/temp_file >> ./app/templates/$TEMPLATES_OUTPUT_FILE
+rm ./app/templates/temp_file
 
 echo ".......................Generate build file: Running browserify to create a single dist file........................"
 $NODE_BIN/browserify ./app/entry.js  -o ./dist/$BUILD_FILE
