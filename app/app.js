@@ -23,18 +23,6 @@
 		var template = Highbrow.Handlebars.templates["test.hbs"];
 	    
 	    var div = document.createElement("div");
-	    // var c = {
-	    // 	"s": {
-			  //   "email-box": "textbox",
-			  //   "comm-box": "text-area",
-			  //   "send-btn": "btn btn-small btn-primary"
-	    // 	},
-	    // 	"l": {
-			  //   "l-feedback": "Give Feedback",
-			  //   "b-feedback": "Feedback",
-			  //   "b-send": "Send"	    		
-	    // 	}
-	    // }
 	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
 
 	    if(document.body != null){ document.body.appendChild(div);}
