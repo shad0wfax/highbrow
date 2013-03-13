@@ -33,10 +33,10 @@
         var photo = new hibrow.Photo({
             "emailAdd": "akshay@aa.com"
         })
-        photo.snapPic();
+        // photo.snapPic();
 
-        photo = new hibrow.Photo();
-        photo.snapPic();
+        // photo = new hibrow.Photo();
+        // photo.snapPic();
 
         var elst = hibrow.Styles;
         hibrow.Util.log("elst - " + elst.get("send-btn"));
@@ -74,6 +74,13 @@
         hibrow.Util.log("elst - " + labels.get("b-send"));        
         hibrow.Util.log("elst - " + labels.get("l-feedback"));        
         hibrow.Util.log("elst - " + labels.get("b-snap"));        
+
+
+        var photo = new hibrow.FormFeedback({
+            "emailAdd": "akshay@aa.com"
+        })
+
+
     </script>
 
 

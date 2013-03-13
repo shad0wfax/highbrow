@@ -24,6 +24,13 @@ See [Chaplin site](http://chaplinjs.org) for docs and more info.
 * Audio - Flash
 * Audio / Video - WebRTC (?)
 
+## Building/Compiling/Contributing
+* Nodejs
+* Brunch (brunch.io) - Asset compilation and testing
+* 'Nix OS (built on Mac. Windows support later)
+* Browserify/Handlebars - Self contained (not global dependency, but used from local dependency)
+
+
 ## License
 The MIT license.
 
