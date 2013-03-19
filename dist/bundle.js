@@ -708,6 +708,72 @@ Handlebars.template = Handlebars.VM.template;
 ;
 });
 
+require.define("/extern/simple_inheritance.js",function(require,module,exports,__dirname,__filename,process,global){/* Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
+ */
+// Inspired by base2 and Prototype
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+ 
+  // The base Class implementation (does nothing)
+  this.Class = function(){};
+ 
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+    var _super = this.prototype;
+   
+    // Instantiate a base class (but only create the instance,
+    // don't run the init constructor)
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+   
+    // Copy the properties over onto the new prototype
+    for (var name in prop) {
+      // Check if we're overwriting an existing function
+      prototype[name] = typeof prop[name] == "function" &&
+        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+        (function(name, fn){
+          return function() {
+            var tmp = this._super;
+           
+            // Add a new ._super() method that is the same method
+            // but on the super-class
+            this._super = _super[name];
+           
+            // The method only need to be bound temporarily, so we
+            // remove it when we're done executing
+            var ret = fn.apply(this, arguments);        
+            this._super = tmp;
+           
+            return ret;
+          };
+        })(name, prop[name]) :
+        prop[name];
+    }
+   
+    // The dummy class constructor
+    function Class() {
+      // All construction is actually done in the init method
+      if ( !initializing && this.init )
+        this.init.apply(this, arguments);
+    }
+   
+    // Populate our constructed prototype object
+    Class.prototype = prototype;
+   
+    // Enforce the constructor to be what we expect
+    Class.prototype.constructor = Class;
+ 
+    // And make this class extendable
+    Class.extend = arguments.callee;
+   
+    return Class;
+  };
+})();
+});
+
 require.define("/util.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, Handlebars, undefined) {	
 	// Util namespace
 	Highbrow.Util = Highbrow.Util || (Highbrow.Util = {});
@@ -920,6 +986,43 @@ require.define("/store.js",function(require,module,exports,__dirname,__filename,
 
 });
 
+require.define("/templates/dom_id/base.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	Highbrow.DomId = Class.extend({
+		dom_ids: {},
+		put: function(props) {
+			if (!props)
+				return
+		    
+		    for(var prop in props) {
+		        if(this.dom_ids.hasOwnProperty(prop)){
+		            this.dom_ids[prop] = props[prop];
+		        }
+		    }
+		},
+		get: function(id) {
+			return Highbrow.Util.getProp(id, this.dom_ids);
+		}
+
+	});
+
+})(window, HighresiO.Highbrow);
+
+});
+
+require.define("/templates/dom_id/form_feedback.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
+
+	var FormFeedbackIds  = new Highbrow.DomId();
+	FormFeedbackIds.put({
+	    "email-box": "textbox",
+	    "comm-box": "text-area",
+	    "send-btn": "btn btn-small btn-primary"
+	});
+
+})(window, HighresiO.Highbrow);
+
+});
+
 require.define("/form_feedback.js",function(require,module,exports,__dirname,__filename,process,global){// Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
 (function(window, Highbrow, undefined) {
 	// config is an object with options override. It is optional and works with sensible defaults.
@@ -952,7 +1055,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div>\n	<h2>"
+  buffer += "\n<div id=\"highresio-hibrow-form-feedback\">\n	<h2>"
     + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-feedback'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h2>\n	<div id=\""
     + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -1009,6 +1112,11 @@ require.define("/entry.js",function(require,module,exports,__dirname,__filename,
 	var handlebars = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
 // }
 
+
+	var inherit = require("./extern/simple_inheritance.js");
+
+
+
 var init = require("./util.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
@@ -1020,6 +1128,9 @@ var init = require("./labels/photo_en.js");
 		var router = require("./router.js");
 		var store = require("./store.js");
 
+
+require("./templates/dom_id/base.js");
+require("./templates/dom_id/form_feedback.js");
 var app = require("./form_feedback.js");
 
 var output = require("./templates/all_templates_output.js");

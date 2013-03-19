@@ -7,6 +7,11 @@ var init = require("./init.js");
 	var handlebars = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
 // }
 
+
+	var inherit = require("./extern/simple_inheritance.js");
+
+
+
 var init = require("./util.js");
 var init = require("./styles/base.js");
 var init = require("./styles/photo.js");
@@ -18,6 +23,9 @@ var init = require("./labels/photo_en.js");
 		var router = require("./router.js");
 		var store = require("./store.js");
 
+
+require("./templates/dom_id/base.js");
+require("./templates/dom_id/form_feedback.js");
 var app = require("./form_feedback.js");
 
 var output = require("./templates/all_templates_output.js");
