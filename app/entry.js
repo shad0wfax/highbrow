@@ -1,33 +1,33 @@
-var init = require("./init.js");
+require("./init.js");
 
 // Extern lib - load only if Handlebars hasn't been defined. 
 // Has to be loaded before util.js
 // Browserify built file prevents the IIFE of our custom Handlerbars this way.
 // if (window.Handlebars === undefined) {
-	var handlebars = require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
+	require("./extern/handlebars.runtime-1.0.rc.1.hibrow.js");
 // }
 
 
-	var inherit = require("./extern/simple_inheritance.js");
+	require("./extern/simple_inheritance.js");
 
 
 
-var init = require("./util.js");
-var init = require("./styles/base.js");
-var init = require("./styles/photo.js");
-var init = require("./labels/base_en.js");
-var init = require("./labels/photo_en.js");
+require("./util.js");
+require("./key_val_class.js");
+
+require("./styles/base.js");
+require("./styles/photo.js");
+require("./labels/base_en.js");
+require("./labels/photo_en.js");
 			
 		// Testing 	
-		var app = require("./app.js");
-		var router = require("./router.js");
-		var store = require("./store.js");
+		require("./app.js");
+		require("./router.js");
+		require("./store.js");
 
 
 require("./templates/dom_id/base.js");
 require("./templates/dom_id/form_feedback.js");
-var app = require("./form_feedback.js");
-
-var output = require("./templates/all_templates_output.js");
+require("./form_feedback.js");
 
 HighresiO.Highbrow.Util.log("Loaded all scripts from entry.js!")

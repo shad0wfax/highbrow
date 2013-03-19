@@ -1,7 +1,5 @@
 (function(window, Highbrow, undefined) {
-
-	var FormFeedbackIds  = new Highbrow.DomId();
-	FormFeedbackIds.put({
+	Highbrow.DomId.put({
 	    "email-box": "textbox",
 	    "comm-box": "text-area",
 	    "send-btn": "btn btn-small btn-primary"

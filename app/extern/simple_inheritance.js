@@ -3,11 +3,12 @@
  * MIT Licensed.
  */
 // Inspired by base2 and Prototype
-(function(){
+// Modified by Akshay to use Highbrow (very minimal change)
+(function(window, Highbrow, undefined){
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
  
   // The base Class implementation (does nothing)
-  this.Class = function(){};
+  this.Class = Highbrow.Class = function(){};
  
   // Create a new Class that inherits from this class
   Class.extend = function(prop) {
@@ -61,4 +62,4 @@
    
     return Class;
   };
-})();
+})(window, HighresiO.Highbrow);
