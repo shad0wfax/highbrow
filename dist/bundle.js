@@ -738,6 +738,23 @@ require.define("/util.js",function(require,module,exports,__dirname,__filename,p
         }
     };
 
+    /*
+         config = {
+            "styles":{"key1":"val1","key2":"val2"...},
+            "labels":{"key1":"val1","key2":"val2"...}, 
+            "domids":{"key1":"val1","key2":"val2"...}
+        }
+    */
+     Highbrow.Util.overrideDefaultsFromOptions = function(options) {
+        if (!options)
+            return;
+
+        if (options["styles"]) Highbrow.Styles.add(options["styles"]);
+        if (options["labels"]) Highbrow.Labels.add(options["labels"]);
+        if (options["domids"]) Highbrow.DomIds.add(options["domids"]);
+    };
+
+
     // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
     Highbrow.Util.handlebarsContext = function() {
     	// TODO: Cache this for repeated lookups.
@@ -949,9 +966,19 @@ require.define("/templates/dom_id/form_feedback.js",function(require,module,expo
 require.define("/form_feedback.js",function(require,module,exports,__dirname,__filename,process,global){// Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
 (function(window, Highbrow, undefined) {
 	// config is an object with options override. It is optional and works with sensible defaults.
+	// Config structure supported: (All optional)
+	/*
+		 config = {
+			"styles":{"key1":"val1","key2":"val2"...}, // Override the defaults
+			"labels":{"key1":"val1","key2":"val2"...}, // Override the defaults
+			"domids":{"key1":"val1","key2":"val2"...}, // Override the defaults
+			"url":"some_http/s_end_point_to_send_info"
+		}
+	*/
 	Highbrow.FormFeedback = function(config) {
 		this.config = config || {};
 		// TODO: Override init logic needed (like passed in styles / lablels)
+		Highbrow.Util.overrideDefaultsFromOptions(this.config);
 
 		var template = Highbrow.Handlebars.templates["form_feedback.hbs"];
 	    

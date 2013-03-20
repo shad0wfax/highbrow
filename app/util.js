@@ -28,6 +28,23 @@
         }
     };
 
+    /*
+         config = {
+            "styles":{"key1":"val1","key2":"val2"...},
+            "labels":{"key1":"val1","key2":"val2"...}, 
+            "domids":{"key1":"val1","key2":"val2"...}
+        }
+    */
+     Highbrow.Util.overrideDefaultsFromOptions = function(options) {
+        if (!options)
+            return;
+
+        if (options["styles"]) Highbrow.Styles.add(options["styles"]);
+        if (options["labels"]) Highbrow.Labels.add(options["labels"]);
+        if (options["domids"]) Highbrow.DomIds.add(options["domids"]);
+    };
+
+
     // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
     Highbrow.Util.handlebarsContext = function() {
     	// TODO: Cache this for repeated lookups.

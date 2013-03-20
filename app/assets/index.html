@@ -76,8 +76,12 @@
         hibrow.Util.log("elst - " + labels.get("b-snap"));        
 
 
-        var photo = new hibrow.FormFeedback({
-            "emailAdd": "akshay@aa.com"
+        var ff = new hibrow.FormFeedback({
+            "labels": {"l-feedback":"Hoo hee!, overriding from direct option!!!"}
+        })
+
+        var ff2 = new hibrow.FormFeedback({
+            // "labels": {"l-feedback":"Hoo hee!, overriding from direct option!!!"}
         })
 
         // Testing johresig stuff
