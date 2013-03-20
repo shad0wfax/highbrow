@@ -17,6 +17,19 @@
 		}
     };
 
+    // Douglas Crockford way :)
+    Highbrow.Util.createObject = function(obj) {
+
+        if (typeof Object.create !== 'function') {
+              Object.create = function (o) {
+                var F = function () {};
+                F.prototype = o;
+                return new F();
+            };
+         }
+         return Object.create(obj);
+    };
+
     Highbrow.Util.mergeProps = function(props, into) {
         if (!props)
             return
@@ -28,6 +41,7 @@
         }
     };
 
+    // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
     /*
          config = {
             "styles":{"key1":"val1","key2":"val2"...},
@@ -35,25 +49,23 @@
             "domids":{"key1":"val1","key2":"val2"...}
         }
     */
-     Highbrow.Util.overrideDefaultsFromOptions = function(options) {
-        if (!options)
-            return;
+    Highbrow.Util.handlebarsContext = function(options) {
+    	// TODO: Cache this for repeated lookups??
 
-        if (options["styles"]) Highbrow.Styles.add(options["styles"]);
-        if (options["labels"]) Highbrow.Labels.add(options["labels"]);
-        if (options["domids"]) Highbrow.DomIds.add(options["domids"]);
+    	return {
+    		"s": mergeAfterCloneIfNeeded(Highbrow.Styles.all(), options["styles"]),
+            "l": mergeAfterCloneIfNeeded(Highbrow.Labels.all(), options["labels"]),
+            "d": mergeAfterCloneIfNeeded(Highbrow.DomIds.all(), options["domids"])
+    	}
     };
 
+    function mergeAfterCloneIfNeeded(origProps, newProps) {
+        if (!newProps)
+            return origProps;
 
-    // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
-    Highbrow.Util.handlebarsContext = function() {
-    	// TODO: Cache this for repeated lookups.
-    	return {
-    		"s": Highbrow.Styles.all(),
-    		"l": Highbrow.Labels.all(),
-            "d": Highbrow.DomIds.all()
-    	}
-
-    }
+        var p  = Highbrow.Util.createObject(origProps);
+        Highbrow.Util.mergeProps(newProps, p);
+        return p;
+    };
 
 })(window, HighresiO.Highbrow);

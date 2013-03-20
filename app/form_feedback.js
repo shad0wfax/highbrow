@@ -1,7 +1,7 @@
 // Follow the IIFE style decleration so that mimifiers can optimize namespace (HighresiO.Highbrow)
 (function(window, Highbrow, undefined) {
 	// config is an object with options override. It is optional and works with sensible defaults.
-	// Config structure supported: (All optional)
+	// Config structure supported: (All optional, but if supplied will override only for this instance)
 	/*
 		 config = {
 			"styles":{"key1":"val1","key2":"val2"...}, // Override the defaults
@@ -13,12 +13,12 @@
 	Highbrow.FormFeedback = function(config) {
 		this.config = config || {};
 		// TODO: Override init logic needed (like passed in styles / lablels)
-		Highbrow.Util.overrideDefaultsFromOptions(this.config);
 
 		var template = Highbrow.Handlebars.templates["form_feedback.hbs"];
+		var compiledTemplate = template(Highbrow.Util.handlebarsContext(this.config));
 	    
 	    var div = document.createElement("div");
-	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
+	    div.innerHTML = compiledTemplate;
 
 	    if(document.body != null){ document.body.appendChild(div);}
 
