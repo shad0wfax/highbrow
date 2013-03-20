@@ -10,7 +10,9 @@
 		var labels = {
 		    "l-feedback": "Give Feedback",
 		    "b-feedback": "Feedback",
-		    "b-send": "Send"
+		    "b-send": "Send",
+		    "l-email": "Email",
+		    "l-comm": "Comments"
 		};
 
 		// Will add and override the passed in labels. Designed to override from inheritence.

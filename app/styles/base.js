@@ -6,9 +6,9 @@
 	Highbrow.Styles = function(){
 		// List the styles
 		var styles = {
-		    "email-box": "textbox",
-		    "comm-box": "text-area",
-		    "send-btn": "btn btn-small btn-primary"
+		    "t-email": "textbox",
+		    "t-comm": "text-area",
+		    "b-send": "btn btn-small btn-primary"
 		};
 
 		// Will add and override the passed in styles. Designed to override from inheritence.

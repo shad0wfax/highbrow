@@ -11,5 +11,17 @@
 	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
 
 	    if(document.body != null){ document.body.appendChild(div);}
+
+	    // Attach button handler
+	    attachBtnClick();
+
+	    function attachBtnClick() {
+		    // Add a test alert message on click for fun
+		    var domids = Highbrow.DomIds;
+		    var btn = document.getElementById(domids.get("ff-b-send"));	    	
+		    btn.addEventListener("click", function() {alert("hello") });
+	    };
+
+
 	};
 })(window, HighresiO.Highbrow);

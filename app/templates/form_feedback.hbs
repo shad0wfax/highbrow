@@ -1,12 +1,13 @@
 {{! Assigning a unique id to the master div that is hopefully unique. All elements in our JS will be looked up wrt to this.}}
-<div id="highresio-hibrow-form-feedback">
+<div id="{{d.ff-main-div}}">
 	<h2>{{l.l-feedback}}</h2>
-	<div id="{{s.email-box}}" class="{{s.email-box}}">
+	<div>
 		<p>
-		<textarea placeholder="{{l.l-feedback}}}"></textarea>
+		<input type="text" id="{{d.ff-t-email}}" class="{{s.t-email}}" placeholder="{{l.l-email}}}" />
+		<textarea id="{{d.ff-t-comm}}" class="{{s.t-comm}}" placeholder="{{l.l-comm}}}"></textarea>
 		</p>
 		<p>
-			<input type="button" value="{{l.b-send}}}">
+			<input id="{{d.ff-b-send}}" class="{{s.b-send}}" type="button" value="{{l.b-send}}}">
 		</p>
 	</div>
 </div>

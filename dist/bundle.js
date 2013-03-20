@@ -743,7 +743,8 @@ require.define("/util.js",function(require,module,exports,__dirname,__filename,p
     	// TODO: Cache this for repeated lookups.
     	return {
     		"s": Highbrow.Styles.all(),
-    		"l": Highbrow.Labels.all()
+    		"l": Highbrow.Labels.all(),
+            "d": Highbrow.DomIds.all()
     	}
 
     }
@@ -759,9 +760,9 @@ require.define("/styles/base.js",function(require,module,exports,__dirname,__fil
 	Highbrow.Styles = function(){
 		// List the styles
 		var styles = {
-		    "email-box": "textbox",
-		    "comm-box": "text-area",
-		    "send-btn": "btn btn-small btn-primary"
+		    "t-email": "textbox",
+		    "t-comm": "text-area",
+		    "b-send": "btn btn-small btn-primary"
 		};
 
 		// Will add and override the passed in styles. Designed to override from inheritence.
@@ -812,7 +813,9 @@ require.define("/labels/base_en.js",function(require,module,exports,__dirname,__
 		var labels = {
 		    "l-feedback": "Give Feedback",
 		    "b-feedback": "Feedback",
-		    "b-send": "Send"
+		    "b-send": "Send",
+		    "l-email": "Email",
+		    "l-comm": "Comments"
 		};
 
 		// Will add and override the passed in labels. Designed to override from inheritence.
@@ -934,9 +937,10 @@ require.define("/templates/dom_id/base.js",function(require,module,exports,__dir
 
 require.define("/templates/dom_id/form_feedback.js",function(require,module,exports,__dirname,__filename,process,global){(function(window, Highbrow, undefined) {
 	Highbrow.DomIds.add({
-	    "email-box": "textbox",
-	    "comm-box": "text-area",
-	    "send-btn": "btn btn-small btn-primary"
+	    "ff-main-div": "ff-highresio-hibrow",
+	    "ff-t-email": "ff-email-box",
+	    "ff-t-comm": "ff-comm-box",
+	    "ff-b-send": "ff-send-btn"
 	});
 })(window, HighresiO.Highbrow);
 
@@ -955,6 +959,18 @@ require.define("/form_feedback.js",function(require,module,exports,__dirname,__f
 	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
 
 	    if(document.body != null){ document.body.appendChild(div);}
+
+	    // Attach button handler
+	    attachBtnClick();
+
+	    function attachBtnClick() {
+		    // Add a test alert message on click for fun
+		    var domids = Highbrow.DomIds;
+		    var btn = document.getElementById(domids.get("ff-b-send"));	    	
+		    btn.addEventListener("click", function() {alert("hello") });
+	    };
+
+
 	};
 })(window, HighresiO.Highbrow);
 
@@ -971,15 +987,27 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "\n<div id=\"highresio-hibrow-form-feedback\">\n	<h2>"
+  buffer += "\n<div id=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['d']),stack1 == null || stack1 === false ? stack1 : stack1['ff-main-div'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n	<h2>"
     + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-feedback'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h2>\n	<div id=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h2>\n	<div>\n		<p>\n		<input type=\"text\" id=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['d']),stack1 == null || stack1 === false ? stack1 : stack1['ff-t-email'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['email-box'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n		<p>\n		<textarea placeholder=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-feedback'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></textarea>\n		</p>\n		<p>\n			<input type=\"button\" value=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['t-email'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" placeholder=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-email'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" />\n		<textarea id=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['d']),stack1 == null || stack1 === false ? stack1 : stack1['ff-t-comm'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['t-comm'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" placeholder=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['l-comm'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></textarea>\n		</p>\n		<p>\n			<input id=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['d']),stack1 == null || stack1 === false ? stack1 : stack1['ff-b-send'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0['s']),stack1 == null || stack1 === false ? stack1 : stack1['b-send'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" type=\"button\" value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0['l']),stack1 == null || stack1 === false ? stack1 : stack1['b-send'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n		</p>\n	</div>\n</div>";
   return buffer;

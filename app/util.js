@@ -33,7 +33,8 @@
     	// TODO: Cache this for repeated lookups.
     	return {
     		"s": Highbrow.Styles.all(),
-    		"l": Highbrow.Labels.all()
+    		"l": Highbrow.Labels.all(),
+            "d": Highbrow.DomIds.all()
     	}
 
     }
