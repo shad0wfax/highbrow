@@ -1,5 +1,5 @@
 (function(window, Highbrow, undefined) {
-	Highbrow.DomId.put({
+	Highbrow.DomIds.add({
 	    "email-box": "textbox",
 	    "comm-box": "text-area",
 	    "send-btn": "btn btn-small btn-primary"

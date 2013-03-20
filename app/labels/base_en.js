@@ -14,15 +14,8 @@
 		};
 
 		// Will add and override the passed in labels. Designed to override from inheritence.
-		var init = function(newLabels) {
-			if (!newLabels)
-				return
-		    
-		    for(var prop in newLabels) {
-		        if(newLabels.hasOwnProperty(prop)){
-		            labels[prop] = newLabels[prop];
-		        }
-		    }
+		var add = function(newLabels) {
+		 	Highbrow.Util.mergeProps(newLabels, labels);
 		};
 
 		var get = function(label) {
@@ -34,7 +27,7 @@
 		};
 
 		return {
-			init: init,
+			add: add,
 			get: get,
 			all: all
 		};

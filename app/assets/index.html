@@ -26,70 +26,70 @@
         // TODO: Push these to a test class :)
         HighresiO0.olfunc();    
         var hibrow =  HighresiO.Highbrow;
-        // hibrow.func1();
-        // hibrow.func2();
-        // hibrow.func3();
+        hibrow.func1();
+        hibrow.func2();
+        hibrow.func3();
         
-        // var photo = new hibrow.Photo({
-        //     "emailAdd": "akshay@aa.com"
-        // })
-        // // photo.snapPic();
+        var photo = new hibrow.Photo({
+            "emailAdd": "akshay@aa.com"
+        })
+        // photo.snapPic();
 
-        // // photo = new hibrow.Photo();
-        // // photo.snapPic();
+        // photo = new hibrow.Photo();
+        // photo.snapPic();
 
-        // var elst = hibrow.Styles;
-        // hibrow.Util.log("elst - " + elst.get("send-btn"));
+        var elst = hibrow.Styles;
+        hibrow.Util.log("elst - " + elst.get("send-btn"));
 
-        // elst.init({
-        //    "send-btn": "btn btn-large btn-success",
-        //    "a-new-prop": "a-new-prop-added-now" 
-        // });
-        // hibrow.Util.log("elst - " + elst.get("send-btn"));        
-        // hibrow.Util.log("elst - " + elst.get("a-new-prop"));
-
-        // var elst2 =  hibrow.PhotoStyles;
-        // hibrow.Util.log("elst - " + elst2.get("send-btn"));
-        // hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));
-
-        // elst2.init({
-        //    "webcam-on-btn": "changed-btn",
-        //    "a-new-prop": "a-new-prop-added-now-from-photo" 
-        // });
-        // hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));        
-        // hibrow.Util.log("elst - " + elst2.get("a-new-prop"));
-
-        // var labels = hibrow.Labels;
-        // hibrow.Util.log("elst - " + labels.get("b-send"));        
-        // hibrow.Util.log("elst - " + labels.get("l-feedback"));        
-
-        // labels.init({
-        //     "b-feedback": "Your Gracious Inputs",
-        //     "b-send": "Kindly Deliver"
-        // })
-        // hibrow.Util.log("elst - " + labels.get("b-send"));        
-        // hibrow.Util.log("elst - " + labels.get("l-feedback"));        
-
-        // var labels2 = hibrow.PhotoLabels;
-        // hibrow.Util.log("elst - " + labels.get("b-send"));        
-        // hibrow.Util.log("elst - " + labels.get("l-feedback"));        
-        // hibrow.Util.log("elst - " + labels.get("b-snap"));        
-
-
-        // var photo = new hibrow.FormFeedback({
-        //     "emailAdd": "akshay@aa.com"
-        // })
-
-        // Testing johresig stuff
-        var dom = hibrow.DomId;
-        console.log("dom.get = " + dom.get("send-btn"));
-
-        var dom2 = hibrow.DomId;
-        dom2.put({
+        elst.add({
            "send-btn": "btn btn-large btn-success",
            "a-new-prop": "a-new-prop-added-now" 
         });
-        console.log("dom.get = " + dom.get("send-btn"));
+        hibrow.Util.log("elst - " + elst.get("send-btn"));        
+        hibrow.Util.log("elst - " + elst.get("a-new-prop"));
+
+        var elst2 =  hibrow.Styles;
+        hibrow.Util.log("elst - " + elst2.get("send-btn"));
+        hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));
+
+        elst2.add({
+           "webcam-on-btn": "changed-btn",
+           "a-new-prop": "a-new-prop-added-now-from-photo" 
+        });
+        hibrow.Util.log("elst - " + elst2.get("webcam-on-btn"));        
+        hibrow.Util.log("elst - " + elst2.get("a-new-prop"));
+
+        var labels = hibrow.Labels;
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
+
+        labels.add({
+            "b-feedback": "Your Gracious Inputs",
+            "b-send": "Kindly Deliver"
+        })
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
+
+        var labels2 = hibrow.PhotoLabels;
+        hibrow.Util.log("elst - " + labels.get("b-send"));        
+        hibrow.Util.log("elst - " + labels.get("l-feedback"));        
+        hibrow.Util.log("elst - " + labels.get("b-snap"));        
+
+
+        var photo = new hibrow.FormFeedback({
+            "emailAdd": "akshay@aa.com"
+        })
+
+        // Testing johresig stuff
+        var dom = hibrow.DomIds;
+        hibrow.Util.log("dom.get = " + dom.get("send-btn"));
+
+        var dom2 = hibrow.DomIds;
+        dom2.add({
+           "send-btn": "btn btn-large btn-success",
+           "a-new-prop": "a-new-prop-added-now" 
+        });
+        hibrow.Util.log("dom.get = " + dom.get("send-btn"));
 
 
     </script>

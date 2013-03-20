@@ -12,15 +12,8 @@
 		};
 
 		// Will add and override the passed in styles. Designed to override from inheritence.
-		var init = function(newStyles) {
-			if (!newStyles)
-				return
-		    
-		    for(var prop in newStyles) {
-		        if(newStyles.hasOwnProperty(prop)){
-		            styles[prop] = newStyles[prop];
-		        }
-		    }
+		var add = function(newStyles) {
+		 	Highbrow.Util.mergeProps(newStyles, styles);
 		};
 		
 		var get = function(style) {
@@ -32,7 +25,7 @@
 		};
 
 		return {
-			init: init,
+			add: add,
 			get: get,
 			all:all
 		}

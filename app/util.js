@@ -17,6 +17,17 @@
 		}
     };
 
+    Highbrow.Util.mergeProps = function(props, into) {
+        if (!props)
+            return
+        
+        for(var prop in props) {
+            if(props.hasOwnProperty(prop)){
+                into[prop] = props[prop];
+            }
+        }
+    };
+
     // Get the context object to pass to handlebars. Computed by concatenating styles and labels.
     Highbrow.Util.handlebarsContext = function() {
     	// TODO: Cache this for repeated lookups.

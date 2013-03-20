@@ -8,12 +8,8 @@ require("./init.js");
 // }
 
 
-	require("./extern/simple_inheritance.js");
-
-
 
 require("./util.js");
-require("./key_val_class.js");
 
 require("./styles/base.js");
 require("./styles/photo.js");
@@ -28,6 +24,11 @@ require("./labels/photo_en.js");
 
 require("./templates/dom_id/base.js");
 require("./templates/dom_id/form_feedback.js");
+
 require("./form_feedback.js");
+
+// Include auto-generated file after handlebars compilation. (Note: this will be deleted from the workshpace though.)
+require("./templates/all_templates_output.js");
+
 
 HighresiO.Highbrow.Util.log("Loaded all scripts from entry.js!")

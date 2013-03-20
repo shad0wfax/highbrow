@@ -11,8 +11,5 @@
 	    div.innerHTML = template(Highbrow.Util.handlebarsContext());
 
 	    if(document.body != null){ document.body.appendChild(div);}
-
-
-
-	}
+	};
 })(window, HighresiO.Highbrow);
